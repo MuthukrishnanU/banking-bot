@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from langchain_openai import ChatOpenAI
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
-from langchain.chains import RetrievalQA
+from langchain_classic.chains import RetrievalQA
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 
