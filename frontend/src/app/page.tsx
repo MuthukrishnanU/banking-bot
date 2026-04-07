@@ -47,7 +47,7 @@ export default function Home() {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/chat`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8001"}/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -96,8 +96,8 @@ export default function Home() {
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-400 font-sans">
-             <div className="h-2 w-2 rounded-full bg-emerald-500" />
-             System Online
+            <div className="h-2 w-2 rounded-full bg-emerald-500" />
+            System Online
           </div>
         </div>
       </header>

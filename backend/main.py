@@ -5,8 +5,8 @@ from langchain_openai import ChatOpenAI
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_classic.chains import RetrievalQA
-from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -57,31 +57,14 @@ async def chat(request: ChatRequest):
     if not qa_chain:
         raise HTTPException(status_code=500, detail="QA chain is not initialized. Please ensure the vector store is created.")
 
-    try:
-        # Prompt: "Answer in the same language as the user's message"
-        prompt = f"""
-        Use the following context to answer the user's question about banking policies.
-        If the answer is not in the context, say that you don't know based on the policy.
-        Please respond in the same language as the user's question.
-
-        Context: {{context}}
-        Question: {request.message}
-        """
-        
-        # LangChain's RetrievalQA usually takes the query directly, but we can wrap it.
-        # For simplicity, we'll use the default RetrievalQA and rely on the LLM's inherent multilingual capability.
-        # Most of the time, GPT-3.5/4 will reply in the same language. 
-        # But let's refine the prompt by using a custom prompt template if needed.
-        
+    try:       
         result = qa_chain({"query": request.message})
-        
         answer = result["result"]
         sources = [doc.metadata.get("source", "Unknown") for doc in result["source_documents"]]
-        
         return ChatResponse(answer=answer, sources=sources)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=8001)
