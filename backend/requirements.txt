@@ -9,3 +9,12 @@ python-dotenv
 tiktoken
 langchain-huggingface
 sentence-transformers
+python-multipart
+unstructured
+python-docx
+docx2txt
+pandas
+openpyxl
+langchain-classic
+langchain-chroma
+langchain-core
