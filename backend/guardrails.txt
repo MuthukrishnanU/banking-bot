@@ -1,0 +1,28 @@
+# Banking Multilingual RAG Chatbot Guardrails
+
+This document outlines the guardrails implemented to ensure safety, accuracy, and reliability in the multilingual banking chatbot.
+
+## 1. Domain Restriction (Banking Policy Only)
+- The system is explicitly instructed to only answer questions based on the provided banking policy documents.
+- If a query is unrelated to banking or policies, the bot will politely decline to answer.
+- Prompt Template Enforcement: The underlying LLM prompt is prefixed with instructions to stay within the provided context.
+
+## 2. Hallucination Prevention
+- "I don't know" Fallback: If the answer cannot be found in the ingested documents, the bot must state that it doesn't have that information rather than hallucinating.
+- Source Attribution: Every response is backed by source documents from the vector database.
+
+## 3. Multilingual Consistency
+- Language Detection & Response: The bot responds in the same language as the user's query.
+- Terminology Preservation: Key banking terms are maintained consistently across translations to avoid misinterpretation of policy rules.
+
+## 4. Input Sanitization & Injection Protection
+- Guarding against prompt injection: User inputs are treated strictly as queries for the retrieval process.
+- No execution of external commands or code snippets provided in the chat input.
+
+## 5. Privacy & Data Security
+- Proprietary Data Protection: The bot only interacts with the files uploaded by the user during the current session (or persisted in the DB).
+- No PII (Personally Identifiable Information) is sought or stored by the bot logic itself.
+
+## 6. Tone and Professionalism
+- The bot maintains a professional, neutral, and helpful tone suitable for a banking environment.
+- Avoids giving financial advice beyond what is explicitly stated in the policy documents.
